@@ -32,6 +32,7 @@
           query = query.replace(scopeRE, '');
 
           if (!this.parentNode) {
+            // The element is currently not part of the document DOM
             // Add to temporary container
             container.appendChild(this);
             gaveContainer = true;
@@ -41,7 +42,7 @@
 
           if (!this.id) {
             // Give temporary ID
-            this.id = 'rootedQuerySelector_id_'+(new Date()).getTime();
+            this.id = Math.random().toString().replace('0.','id_'+Date.now());
             gaveId = true;
           }
 
