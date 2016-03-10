@@ -14,7 +14,7 @@
   }
   catch (e) {
     // Match usage of scope
-    var scopeRE = /^\s*:scope/gi;
+    var scopeRE = /:scope/;
 
     // Overrides
     function overrideNodeMethod(prototype, methodName) {
@@ -41,12 +41,12 @@
 
           if (!this.id) {
             // Give temporary ID
-            this.id = 'rootedQuerySelector_id_'+(new Date()).getTime();
+            this.id = Math.random().toString().replace('0.','id_'+Date.now());
             gaveId = true;
           }
 
           // Find elements against parent node
-          nodeList = oldMethod.call(parentNode, '#'+this.id+' '+query);
+          nodeList = oldMethod.call(parentNode, query.replace(/:scope/g,'#'+this.id));
 
           // Reset the ID
           if (gaveId) {
